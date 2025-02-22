@@ -10,7 +10,6 @@ import org.junit.Test;
  */
 
 
-
 public class AppleTest extends BaseTest { // Здесь проводится логика проверки. Наследуемся от BaseTest
 
     private final static String BASE_URL = "https://www.iphones.ru/";
