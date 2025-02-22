@@ -13,7 +13,7 @@ public void setUp(){
     Configuration.browser = "chrome"; //Выбрать именно com.codeborne.selenide
     Configuration.webdriverLogsEnabled = true; //это показывает что у нас именно WebDriver библиотека
     Configuration.browserSize = "1920x1080"; // Размер окна. Configuration.startMaximized = true; - открытие на весь экран
-    Configuration.headless = true ; // Будет ли видно на экране все, что происходит
+    Configuration.headless = false ; // Будет ли видно на экране все, что происходит
 }
 @Before //Перед каждым запуском теста, будет происходить инициализация webDriver
     public void init(){
