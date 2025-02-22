@@ -1,5 +1,8 @@
+package SelenideAppleRu;
+
 import org.junit.Assert;
 import org.junit.Test;
+import core.BaseTest;
 
 /**
  * 1) открыть сайт iphones.ru
@@ -10,7 +13,7 @@ import org.junit.Test;
  */
 
 
-public class AppleTest extends BaseTest { // Здесь проводится логика проверки. Наследуемся от BaseTest
+public class AppleTest extends BaseTest { // Здесь проводится логика проверки. Наследуемся от core.BaseTest
 
     private final static String BASE_URL = "https://www.iphones.ru/";
     // private - доступна только в этом классе,
@@ -44,7 +47,7 @@ public class AppleTest extends BaseTest { // Здесь проводится л�
         mainPageChain.acceptCookies();
         String href = mainPageChain.search(SEARCH_STRING).getHrefFromFirstArticle();
         // сразу приделываем href строку
-        // здесь сразу через "." обращаемся к следующем классу и эго методу getHrefFromFirstArticle()/ в классе SearchPage
+        // здесь сразу через "." обращаемся к следующем классу и эго методу getHrefFromFirstArticle()/ в классе SelenideAppleRu.SearchPage
         Assert.assertTrue(href.contains(Expected_WORD));
     }
 

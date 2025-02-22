@@ -1,3 +1,5 @@
+package SelenideAppleRu;
+
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
@@ -26,7 +28,7 @@ public class MainPageChain {
      * Метод для выполнения поиска.
      *
      * @param searchString - поисковый запрос
-     * @return объект SearchPage для дальнейшей работы
+     * @return объект SelenideAppleRu.SearchPage для дальнейшей работы
      */
     public SearchPage search(String searchString) {
         textBoxInput.setValue(searchString);
@@ -37,7 +39,7 @@ public class MainPageChain {
     /**
      * Метод для принятия куки, если всплывающее окно отображается.
      *
-     * @return текущий объект MainPageChain для цепочки вызовов
+     * @return текущий объект SelenideAppleRu.MainPageChain для цепочки вызовов
      */
     public MainPageChain acceptCookies() {
         // Ищем кнопку с текстом «Принять/Contest»

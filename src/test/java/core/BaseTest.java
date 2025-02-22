@@ -1,3 +1,5 @@
+package core;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -11,14 +13,14 @@ public void setUp(){
     Configuration.browser = "chrome"; //Выбрать именно com.codeborne.selenide
     Configuration.webdriverLogsEnabled = true; //это показывает что у нас именно WebDriver библиотека
     Configuration.browserSize = "1920x1080"; // Размер окна. Configuration.startMaximized = true; - открытие на весь экран
-    Configuration.headless = false; // Будет ли видно на экране все, что происходит
+    Configuration.headless = true ; // Будет ли видно на экране все, что происходит
 }
 @Before //Перед каждым запуском теста, будет происходить инициализация webDriver
     public void init(){
     setUp();
 }
 
-@After //После каждого теста, будет закрывается webDriver
+@After //После каждого теста, будет закрываться webDriver
     public void teatDown(){
     Selenide.closeWebDriver();
 }

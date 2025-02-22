@@ -1,3 +1,5 @@
+package SelenideAppleRu;
+
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
@@ -13,12 +15,12 @@ public class MainPage {
 
     public MainPage(String url){
         // открывает браузер и сразу заходит на сайт, который нужно в тесте указать в скобках
-        // MainPage mainPage = new MainPage(здесь указать сайт);
+        // SelenideAppleRu.MainPage mainPage = new SelenideAppleRu.MainPage(здесь указать сайт);
         Selenide.open(url);
     }
 
     public void openWebSite(String url) {
-        // при таком методе в тесте нужно писать MainPage mainPage = new MainPage(сюда ничего не вставлять);
+        // при таком методе в тесте нужно писать SelenideAppleRu.MainPage mainPage = new SelenideAppleRu.MainPage(сюда ничего не вставлять);
         // mainPage.openWebSite(BASE_URL);
         Selenide.open(url);
     }
