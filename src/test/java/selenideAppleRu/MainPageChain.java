@@ -1,4 +1,4 @@
-package SelenideAppleRu;
+package selenideAppleRu;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;

@@ -15,7 +15,7 @@ public interface ConfigProvider {
      * @return
      */
     static Config readConfig(){
-        return ConfigFactory.systemProperties().hasPath("testProfile") // Если у нас есть при запуске "testProfile" (Тоесть запускаем не программу а именно тесты), тогда config файл будет читатся
+        return ConfigFactory.systemProperties().hasPath("testProfile") // Если у нас есть при запуске "testProfile" (То есть запускаем не программу а именно тесты), тогда config файл будет читатся
                 ? ConfigFactory.load(ConfigFactory.systemProperties().getString("testProfile"))
                 : ConfigFactory.load("application.conf");
         //return ConfigFactory.load("application.conf");
