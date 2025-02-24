@@ -10,18 +10,27 @@ repositories {
 }
 
 dependencies {
+    // Используем JUnit 5
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.27.0'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '4.27.0'
+
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '4.27.0'
+
     implementation group: 'com.codeborne', name: 'selenide', version: '7.7.1'
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.2'
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '4.26.0'
+
+
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.2'
+
     implementation group: 'com.typesafe', name: 'config', version: '1.4.3'
 
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
 
+    testImplementation 'commons-io:commons-io:2.11.0'
 
 }
 
