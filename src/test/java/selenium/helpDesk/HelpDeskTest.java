@@ -3,10 +3,7 @@ package selenium.helpDesk;
 import core.BaseSeleniumTest;
 import helpers.TestValues;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TestWatcher;
 import selenium.ConfigSeleniumProvider;
 import static helpers.StringModifier.getUniqueString;
 
@@ -62,7 +59,7 @@ public class HelpDeskTest extends BaseSeleniumTest {
 
 
         MainPageTicket mainPageTicket = new MainPageTicket();
-        mainPageTicket.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, TestValues.EMAIL, ConfigSeleniumProvider.QUEUE_SOMEPRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
+        mainPageTicket.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, TestValues.EMAIL, ConfigSeleniumProvider.QUEUE_SOME_PRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
         Assert.assertTrue(mainPageTicket.checkTitle().contains(summaryOfTheProblem));
         mainPageTicket.openLoginPage();
         LoginPage loginPage = new LoginPage();
@@ -81,7 +78,7 @@ public class HelpDeskTest extends BaseSeleniumTest {
 
 
         MainPageTicket mainPageTicket = new MainPageTicket();
-        mainPageTicket.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION_Eng, TestValues.EMAIL, ConfigSeleniumProvider.QUEUE_SOMEPRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
+        mainPageTicket.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION_Eng, TestValues.EMAIL, ConfigSeleniumProvider.QUEUE_SOME_PRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
         //Assert.assertTrue(mainPageTicket.checkTitle().contains(summaryOfTheProblem));
         mainPageTicket.waitForLoading();
         mainPageTicket.openLoginPage();
@@ -101,7 +98,7 @@ public class HelpDeskTest extends BaseSeleniumTest {
 
 
         MainPageTicket mainPageTicket = new MainPageTicket();
-        mainPageTicket.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, TestValues.EMAIL, ConfigSeleniumProvider.QUEUE_SOMEPRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
+        mainPageTicket.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, TestValues.EMAIL, ConfigSeleniumProvider.QUEUE_SOME_PRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
         mainPageTicket.waitForLoading();
         mainPageTicket.openLoginPage();
         LoginPage loginPage = new LoginPage();

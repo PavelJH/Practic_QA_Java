@@ -51,7 +51,7 @@ public interface ConfigSeleniumProvider {
 
     // Чтение значений для очередей
     String QUEUE_DJANGO_HELPDESK = readConfigSelenium().getString("queue.djangoHelpdesk");
-    String QUEUE_SOMEPRODUCT     = readConfigSelenium().getString("queue.someProduct");
+    String QUEUE_SOME_PRODUCT = readConfigSelenium().getString("queue.someProduct");
 
     // Чтение значений для приоритетов
     String PRIORITY_CRITICAL  = readConfigSelenium().getString("priority.critical");
