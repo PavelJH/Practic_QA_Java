@@ -50,4 +50,10 @@ public class HelpDeskTestSelenium extends BaseTest {
 
     }
 
+    @Test
+    public void tryScreenshot(){
+        MainPageSelenide mainPageSelenide = new MainPageSelenide(BASE_URL);
+        mainPageSelenide.waitForLoading();
+    }
+
 }
