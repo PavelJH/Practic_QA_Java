@@ -3,6 +3,7 @@ package selenide.helpDesk;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.github.javafaker.Faker;
+import selenium.ConfigSeleniumProvider;
 import selenium.helpDesk.LoginPage;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
+import static selenium.ConfigSeleniumProvider.configSelenium;
 
 public class MainPageSelenide {
 
@@ -41,7 +43,7 @@ public class MainPageSelenide {
 
     public void selectRandomDate() {
         // Генерируем случайное число от 1 до 28 включительно
-        int randomDay = ThreadLocalRandom.current().nextInt(1, 29);
+        int randomDay = ThreadLocalRandom.current().nextInt(1, 28);
         // Формируем xpath с подставленным случайным числом
         String xpath = String.format("//table[@class='ui-datepicker-calendar']//a[text()='%d']", randomDay);
         // Находим элемент и, например, кликаем по нему
@@ -76,6 +78,28 @@ public class MainPageSelenide {
     public SelenideElement getTitleText(){
         return summaryOfTheProblemCheck;
     }
+
+    public String getRandomPriority() {
+        String[] priorities = {
+                ConfigSeleniumProvider.PRIORITY_CRITICAL,
+                ConfigSeleniumProvider.PRIORITY_HIGH,
+                ConfigSeleniumProvider.PRIORITY_NORMAL,
+                ConfigSeleniumProvider.PRIORITY_LOW,
+                ConfigSeleniumProvider.PRIORITY_VERY_LOW
+        };
+        int randomIndex = ThreadLocalRandom.current().nextInt(priorities.length);
+        return priorities[randomIndex];
+    }
+
+    public String getRandomQueue() {
+        String[] queues = {
+                ConfigSeleniumProvider.QUEUE_DJANGO_HELPDESK,
+                ConfigSeleniumProvider.QUEUE_SOME_PRODUCT
+        };
+        int randomIndex = ThreadLocalRandom.current().nextInt(queues.length);
+        return queues[randomIndex];
+    }
+
 
 
 

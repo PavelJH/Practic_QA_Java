@@ -3,7 +3,6 @@ package selenide.helpDesk;
 import com.github.javafaker.Faker;
 import core.BaseTest;
 import helpers.TestValues;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import selenium.ConfigSeleniumProvider;
 import selenium.helpDesk.TestUtils;
@@ -13,7 +12,7 @@ import static com.codeborne.selenide.Condition.text;
 import static helpers.StringModifierSelenium.getUniqueString;
 
 
-public class HelpDeskTestSelenium extends BaseTest {
+public class HelpDeskTestSelenide extends BaseTest {
     private final static String BASE_URL = "https://at-sandbox.workbench.lanit.ru/tickets/submit/";
     private final static String SUMMARY_OF_THE_PROBLEM = "Павел тест ";
     private final static String DESCRIPTION = "Сообщение в техническую поддержку от Павла Селинид";
@@ -34,7 +33,7 @@ public class HelpDeskTestSelenium extends BaseTest {
         String summaryOfTheProblem = getUniqueString(TestValues.SUMMARY_OF_THE_PROBLEM);
 
         MainPageSelenide mainPageSelenide = new MainPageSelenide(BASE_URL);
-        mainPageSelenide.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, fakeEmail, ConfigSeleniumProvider.QUEUE_SOME_PRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
+        mainPageSelenide.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, fakeEmail, ConfigSeleniumProvider.QUEUE_SOME_PRODUCT, mainPageSelenide.getRandomPriority());
         mainPageSelenide.waitForLoading();
         mainPageSelenide.getTitleText().shouldHave(text(summaryOfTheProblem));
         mainPageSelenide.openLoginPage();
@@ -46,7 +45,7 @@ public class HelpDeskTestSelenium extends BaseTest {
 
         ticketPageSelenide.getTitleElement().shouldHave(text(summaryOfTheProblem));
         ticketPageSelenide.getDescriptionElement().shouldHave(exactText(TestValues.DESCRIPTION));
-        ticketPageSelenide.getSubmitterEmailElement().shouldHave(exactText(EMAIL));
+        ticketPageSelenide.getSubmitterEmailElement().shouldHave(exactText(fakeEmail));
 
     }
 

@@ -1,4 +1,4 @@
-//package core;
+package core;//package core;
 //
 //import com.codeborne.selenide.Configuration;
 //import com.codeborne.selenide.Selenide;
@@ -29,29 +29,36 @@
 //}
 
 
-package core;
-
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestName;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
+import java.lang.reflect.Method;
 
-abstract public class BaseTest {
+public abstract class BaseTest {
 
     private static final int MAX_SCREENSHOTS = 10;
     private static final File SCREENSHOT_FOLDER;
 
+    // Здесь будем временно хранить название текущего тестового метода
+    private String currentTestMethodName = "UnknownMethod";
+
     static {
         Configuration.savePageSource = false;
+        // Отключаем автоматические скриншоты при падении теста
+        Configuration.screenshots = false;
+        // Отключаем логи WebDriver, чтобы не плодились .log файлы
+        Configuration.webdriverLogsEnabled = false;
+
         String projectRoot = System.getProperty("user.dir");
         SCREENSHOT_FOLDER = new File(projectRoot, "screenshots");
         if (!SCREENSHOT_FOLDER.exists()) {
@@ -60,32 +67,38 @@ abstract public class BaseTest {
         Configuration.reportsFolder = SCREENSHOT_FOLDER.getAbsolutePath();
     }
 
-    @Rule
-    public TestName testName = new TestName();
+    @BeforeEach
+    public void setUp(TestInfo testInfo) {
+        // Устанавливаем имя текущего тест-метода (если есть)
+        this.currentTestMethodName = testInfo.getTestMethod()
+                .map(Method::getName)
+                .orElse("UnknownMethod");
 
-    public void setUp() {
+        // Настройка браузера
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
-        Configuration.webdriverLogsEnabled = true;
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
     }
 
-    @Before
-    public void init() {
-        setUp();
-    }
-
-    @After
+    @AfterEach
     public void tearDown() {
         if (WebDriverRunner.hasWebDriverStarted()) {
             try {
                 String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String screenshotName = getClass().getSimpleName() + "_" + testName.getMethodName() + "_" + timestamp;
+
+                // Формируем имя скриншота: Класс_Метод_дата
+                String screenshotName = getClass().getSimpleName()
+                        + "_" + currentTestMethodName
+                        + "_" + timestamp;
+
+                // Делаем скриншот (теперь только один, т.к. автоскриншоты отключены)
                 Selenide.screenshot(screenshotName);
+
+                // Очищаем старые скриншоты, если слишком много
                 manageScreenshotFiles();
             } catch (Exception e) {
-                System.err.println("Ошибка при создании скриншота: " + e.getMessage());
+                System.err.println("Error while creating screenshot: " + e.getMessage());
             } finally {
                 Selenide.closeWebDriver();
             }
@@ -99,59 +112,9 @@ abstract public class BaseTest {
             int filesToDelete = files.length - MAX_SCREENSHOTS;
             for (int i = 0; i < filesToDelete; i++) {
                 if (files[i].delete()) {
-                    System.out.println("Удален старый скриншот: " + files[i].getName());
+                    System.out.println("Old screenshot removed: " + files[i].getName());
                 }
             }
         }
     }
 }
-
-
-
-
-
-//package core;
-//
-//import com.codeborne.selenide.Configuration;
-//import com.codeborne.selenide.Selenide;
-//import io.github.bonigarcia.wdm.WebDriverManager;
-//import org.junit.jupiter.api.AfterEach;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//
-//import java.io.File;
-//
-//@ExtendWith(core.TestWatcherExtension.class) // Подключаем расширение
-//abstract public class BaseTest {
-//
-//    static {
-//        // Отключаем сохранение HTML-страницы
-//        Configuration.savePageSource = false;
-//
-//        // Создаем папку для скриншотов
-//        String projectRoot = System.getProperty("user.dir");
-//        File screenshotsFolder = new File(projectRoot, "screenshots");
-//        if (!screenshotsFolder.exists()) {
-//            screenshotsFolder.mkdirs();
-//        }
-//        Configuration.reportsFolder = screenshotsFolder.getAbsolutePath();
-//    }
-//
-//    public void setUp() {
-//        WebDriverManager.chromedriver().setup();
-//        Configuration.browser = "chrome";
-//        Configuration.webdriverLogsEnabled = true;
-//        Configuration.browserSize = "1920x1080";
-//        Configuration.headless = false;
-//    }
-//
-//    @BeforeEach
-//    public void init() {
-//        setUp();
-//    }
-//
-//    @AfterEach
-//    public void tearDown() {
-//        Selenide.closeWebDriver();
-//    }
-//}
