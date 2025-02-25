@@ -1,4 +1,3 @@
-
 package core;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -46,7 +45,7 @@ abstract public class BaseSeleniumTest {
 
         @Override
         protected void failed(Throwable e, Description description) {
-            takeScreenshot("failure_" + description.getMethodName() + "_" + getTimestamp());
+            takeScreenshot("failure_" + description.getClassName() + "_" + description.getMethodName() + "_" + getTimestamp());
         }
 
         @Override

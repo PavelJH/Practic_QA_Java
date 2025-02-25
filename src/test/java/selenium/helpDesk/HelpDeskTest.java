@@ -5,7 +5,7 @@ import helpers.TestValues;
 import org.junit.Assert;
 import org.junit.Test;
 import selenium.ConfigSeleniumProvider;
-import static helpers.StringModifier.getUniqueString;
+import static helpers.StringModifierSelenium.getUniqueString;
 
 
 public class HelpDeskTest extends BaseSeleniumTest {

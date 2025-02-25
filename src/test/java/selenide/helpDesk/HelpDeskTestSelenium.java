@@ -1,12 +1,16 @@
 package selenide.helpDesk;
 
+import com.github.javafaker.Faker;
 import core.BaseTest;
 import helpers.TestValues;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import selenium.ConfigSeleniumProvider;
+import selenium.helpDesk.TestUtils;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.text;
+import static helpers.StringModifierSelenium.getUniqueString;
 
 
 public class HelpDeskTestSelenium extends BaseTest {
@@ -18,24 +22,31 @@ public class HelpDeskTestSelenium extends BaseTest {
     private final static String LOGIN = "admin";
     private final static String PASSWORD = "adminat";
 
+    private static final Faker faker = new Faker();
+
+    public static String generateFakeEmail() {
+        return faker.internet().emailAddress();
+    }
+
     @Test
-    public void checkHref(){
+    public void checkTicket(){
+        String fakeEmail = TestUtils.generateFakeEmail();
+        String summaryOfTheProblem = getUniqueString(TestValues.SUMMARY_OF_THE_PROBLEM);
+
         MainPageSelenide mainPageSelenide = new MainPageSelenide(BASE_URL);
-        mainPageSelenide.createTicket(SUMMARY_OF_THE_PROBLEM, DESCRIPTION, EMAIL);
+        mainPageSelenide.createTicket(summaryOfTheProblem, TestValues.DESCRIPTION, fakeEmail, ConfigSeleniumProvider.QUEUE_SOME_PRODUCT, ConfigSeleniumProvider.PRIORITY_LOW);
+        mainPageSelenide.waitForLoading();
+        mainPageSelenide.getTitleText().shouldHave(text(summaryOfTheProblem));
         mainPageSelenide.openLoginPage();
         LoginPageSelenide loginPageSelenide = new LoginPageSelenide();
         loginPageSelenide.auth(LOGIN, PASSWORD);
         TicketsPageSelenide ticketsPageSelenide = new TicketsPageSelenide();
-        ticketsPageSelenide.findTicket(SUMMARY_OF_THE_PROBLEM);
+        ticketsPageSelenide.findTicket(summaryOfTheProblem);
         TicketPageSelenide ticketPageSelenide = new TicketPageSelenide();
 
-        ticketPageSelenide.getTitleElement().shouldHave(text(SUMMARY_OF_THE_PROBLEM));
+        ticketPageSelenide.getTitleElement().shouldHave(text(summaryOfTheProblem));
         ticketPageSelenide.getDescriptionElement().shouldHave(exactText(TestValues.DESCRIPTION));
-        ticketPageSelenide.getSubmitterEmailElement().shouldHave(exactText(TestValues.EMAIL));
-        int a = 0;
-
-
-
+        ticketPageSelenide.getSubmitterEmailElement().shouldHave(exactText(EMAIL));
 
     }
 
