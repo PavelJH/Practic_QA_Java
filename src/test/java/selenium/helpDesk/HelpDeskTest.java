@@ -2,8 +2,10 @@ package selenium.helpDesk;
 
 import core.BaseSeleniumTest;
 import helpers.TestValues;
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import selenium.ConfigSeleniumProvider;
 import static helpers.StringModifierSelenium.getUniqueString;
 
@@ -54,6 +56,8 @@ public class HelpDeskTest extends BaseSeleniumTest {
      */
 
     @Test
+    @Owner("PavelJH owner")// Аннотация Allure
+    @Description("Here test ____ and this test is___and____")// Аннотация Allure
     public void checkTicketFullVersion(){
         String summaryOfTheProblem = getUniqueString(TestValues.SUMMARY_OF_THE_PROBLEM);
 

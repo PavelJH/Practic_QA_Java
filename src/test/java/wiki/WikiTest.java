@@ -6,6 +6,8 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import core.BaseTest;
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +24,8 @@ public class WikiTest extends BaseTest {
     private final static String URL = "https://ru.wikipedia.org/wiki/Java";
 
     @Test
+    @Owner("PavelJH owner")// Аннотация Allure
+    @Description("Here test ____ and this test is___and____")// Аннотация Allure
     public void openAllHrefsWithForINT(){
         Selenide.open(URL); // Открытие браузера
         ElementsCollection hrefs = $$x("//div[@id='toc']//a[@href]"); //обозначаем коллекцию элементов/ через два знака $ и x, можно найти колекцию элементов через xpath

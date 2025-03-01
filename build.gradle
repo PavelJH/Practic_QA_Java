@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.12.0'
+    id 'org.gradle.test-retry' version '1.4.1'
 }
 
 group = 'org.example'
@@ -10,34 +12,47 @@ repositories {
 }
 
 dependencies {
-    // Используем JUnit 5
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.27.0'
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '4.27.0'
-
-    implementation group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '4.27.0'
-
-    implementation group: 'com.codeborne', name: 'selenide', version: '7.7.1'
-    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.2'
-
-
+    // JUnit 4 (если нужны)
     testImplementation 'junit:junit:4.13.2'
-    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.10.3'
 
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    // Основная зависимость для JUnit Jupiter (JUnit 5)
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // Selenium и Selenide
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.27.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.27.0'
+    testImplementation 'org.seleniumhq.selenium:selenium-api:4.27.0'
+    testImplementation 'com.codeborne:selenide:7.7.1'
+    testImplementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
 
-    implementation group: 'com.typesafe', name: 'config', version: '1.4.3'
+    // Allure для JUnit 4
+    testImplementation group: 'io.qameta.allure', name: 'allure-junit4', version: '2.28.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-commandline', version: '2.29.0', ext: 'pom'
+    testImplementation group: 'io.qameta.allure', name: 'allure-assertj', version: '2.28.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-rest-assured', version: '2.28.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.28.1'
 
+    // Конфигурации и Faker для генерации данных
+    implementation 'com.typesafe:config:1.4.3'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
 
+    // Дополнительные утилиты
     testImplementation 'commons-io:commons-io:2.11.0'
+    testImplementation 'org.aspectj:aspectjweaver:1.9.19'
+    testImplementation group: 'io.qameta.allure', name: 'allure-selenide', version: '2.28.1'
+
+    // JUnit 5 / Jupiter – используем одну версию для всех компонентов
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.3'
+
+    // TestNG (если нужны)
+    testImplementation group: 'org.testng', name: 'testng', version: '7.10.2'
 
 }
 
 test {
     useJUnitPlatform()
+    retry {
+        maxRetries = 2
+        maxFailures = 20
+        failOnPassedAfterRetry = true
+    }
 }

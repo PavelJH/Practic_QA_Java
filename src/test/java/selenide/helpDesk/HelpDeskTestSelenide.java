@@ -3,6 +3,7 @@ package selenide.helpDesk;
 import com.github.javafaker.Faker;
 import core.BaseTest;
 import helpers.TestValues;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import selenium.ConfigSeleniumProvider;
 import selenium.helpDesk.TestUtils;
@@ -54,5 +55,11 @@ public class HelpDeskTestSelenide extends BaseTest {
         MainPageSelenide mainPageSelenide = new MainPageSelenide(BASE_URL);
         mainPageSelenide.waitForLoading();
     }
+    @Test
+    public void tryScreenshot1(){
+        MainPageSelenide mainPageSelenide = new MainPageSelenide(BASE_URL);
+        Assert.assertFalse(true);
+    }
+
 
 }
